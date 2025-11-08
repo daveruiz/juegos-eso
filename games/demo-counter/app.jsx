@@ -1,8 +1,8 @@
 const { useState, useEffect } = React;
 
 const buttonTone = {
-  danger: "bg-rose-500 text-slate-950 hover:bg-rose-400",
-  success: "bg-emerald-400 text-slate-950 hover:bg-emerald-300",
+  danger: "bg-rose-500 text-brand-foreground hover:bg-rose-400",
+  success: "bg-emerald-400 text-brand-foreground hover:bg-emerald-300",
   neutral: "bg-white/10 text-slate-100 hover:bg-white/20",
 };
 
@@ -47,7 +47,7 @@ function HistoryList({ history }) {
               className="flex items-center gap-3 rounded-xl bg-white/5 px-3 py-2 text-sm"
             >
               <span
-                className={`inline-grid h-7 w-7 place-items-center rounded-full text-sm font-semibold text-slate-950 ${
+                className={`inline-grid h-7 w-7 place-items-center rounded-full text-sm font-semibold text-brand-foreground ${
                   entry.type === "add"
                     ? "bg-emerald-400"
                     : entry.type === "subtract"
