@@ -9,15 +9,19 @@ permissions:
   pages: write
   id-token: write
   pull-requests: write
+  issues: write
+  discussions: write
 
 concurrency:
-  group: "pages-preview-${{ github.event.number }}"
+  group: "pages-preview-${{ github.event.pull_request.number }}"
   cancel-in-progress: true
 
 jobs:
   build:
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
+    outputs:
+      pages_base_url: ${{ steps.pages_base.outputs.base_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,21 +31,68 @@ jobs:
           persist-credentials: false
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
+      - name: Obtener URL base de Pages
+        id: pages_base
+        uses: actions/github-script@v7
+        with:
+          script: |
+            let baseUrl;
+            try {
+              const { data } = await github.rest.repos.getPages({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+              });
+              baseUrl = data.html_url;
+            } catch (error) {
+              core.warning(`No se pudo obtener la URL de Pages vía API: ${error.message}`);
+              const isUserSite = `${context.repo.owner}.github.io` === context.repo.repo;
+              baseUrl = `https://${context.repo.owner}.github.io${isUserSite ? '/' : `/${context.repo.repo}/`}`;
+            }
+
+            if (!baseUrl.endsWith('/')) {
+              baseUrl = `${baseUrl}/`;
+            }
+
+            core.setOutput('base_url', baseUrl);
+      - name: Preparar contenido con ruta dedicada
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          PREVIEW_DIR="__preview/pr-$PR_NUMBER"
+          mkdir -p "$PREVIEW_DIR"
+          rsync -av --exclude='.git' --exclude='.github' --exclude='__preview' ./ "$PREVIEW_DIR/"
       - name: Subir artefacto de la página
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "."
+          path: "__preview"
 
   deploy:
     needs: build
     if: needs.build.result == 'success'
     runs-on: ubuntu-latest
     environment:
-      name: preview-${{ github.event.number }}
-      url: ${{ steps.deployment.outputs.page_url }}
+      name: preview-${{ github.event.pull_request.number }}
+      url: ${{ format('{0}pr-{1}/', needs.build.outputs.pages_base_url, github.event.pull_request.number) }}
     steps:
       - name: Desplegar vista previa
         id: deployment
         uses: actions/deploy-pages@v4
         with:
           preview: true
+      - name: Publicar comentario con enlace de vista previa
+        uses: actions/github-script@v7
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          BASE_URL: ${{ needs.build.outputs.pages_base_url }}
+        with:
+          script: |
+            const previewUrl = `${process.env.BASE_URL}pr-${process.env.PR_NUMBER}/`;
+            const marker = '<!-- preview-pr-link -->';
+            const body = `${marker}\n🚀 Vista previa disponible: [${previewUrl}](${previewUrl})`;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body,
+            });
