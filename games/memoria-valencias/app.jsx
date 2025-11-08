@@ -159,7 +159,7 @@ function IntroScreen({ onContinue }) {
         <button
           type="button"
           onClick={onContinue}
-          className="inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 text-base font-semibold text-slate-950 shadow-lg transition hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/60 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+          className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand to-brand-dark px-6 py-3 text-base font-semibold text-slate-950 shadow-lg transition hover:-translate-y-0.5 hover:from-brand-dark hover:to-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/60 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
         >
           ¡Empezar!
         </button>
@@ -240,7 +240,7 @@ function DifficultyScreen({ selectedDifficulty, onSelect, onPlay, onBack }) {
         <button
           type="button"
           onClick={onPlay}
-          className="inline-flex items-center gap-2 rounded-full bg-brand px-6 py-2 text-sm font-semibold text-slate-950 shadow-lg transition hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/60 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+          className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand to-brand-dark px-6 py-2 text-sm font-semibold text-slate-950 shadow-lg transition hover:-translate-y-0.5 hover:from-brand-dark hover:to-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/60 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
         >
           ¡A jugar!
         </button>
@@ -285,7 +285,7 @@ function Scoreboard({ moves, matched, totalPairs, timeLeft, timeLimit, onReset, 
           <button
             type="button"
             onClick={onReset}
-            className="inline-flex items-center gap-2 rounded-xl bg-brand px-4 py-2 text-sm font-semibold text-slate-950 shadow-lg transition hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/60 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+            className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-brand to-brand-dark px-4 py-2 text-sm font-semibold text-slate-950 shadow-lg transition hover:-translate-y-0.5 hover:from-brand-dark hover:to-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/60 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
           >
             Reiniciar
           </button>
@@ -324,7 +324,7 @@ function MemoryBoard({ cards, flippedCards, matchedPairs, isBusy, onCardClick })
               type="button"
               disabled={disabled}
               onClick={() => onCardClick(card)}
-              className={`relative flex aspect-[4/5] w-full items-center justify-center rounded-2xl border text-center transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/70 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${
+              className={`relative flex aspect-[3/4] w-full items-center justify-center rounded-2xl border text-center transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/70 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${
                 isMatched
                   ? "border-emerald-300/70 bg-emerald-500/20 text-emerald-100 shadow-inner"
                   : isRevealed
@@ -334,7 +334,7 @@ function MemoryBoard({ cards, flippedCards, matchedPairs, isBusy, onCardClick })
               aria-pressed={isRevealed}
             >
               {isRevealed ? (
-                <div className="flex h-full w-full flex-col items-center justify-center gap-3 px-2 text-sm sm:px-4">
+                <div className="flex h-full w-full flex-col items-center gap-3 overflow-hidden px-3 py-4 text-sm sm:px-5">
                   <span
                     className={`rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide ${
                       card.type === "element"
@@ -344,8 +344,10 @@ function MemoryBoard({ cards, flippedCards, matchedPairs, isBusy, onCardClick })
                   >
                     {card.helper}
                   </span>
-                  <span className="text-base font-semibold leading-snug sm:text-lg">{card.label}</span>
-                  <p className="text-xs leading-relaxed text-slate-500 sm:text-[13px]">{card.note}</p>
+                  <div className="flex flex-1 flex-col justify-center gap-2 text-pretty">
+                    <span className="text-base font-semibold leading-tight text-balance sm:text-lg">{card.label}</span>
+                    <p className="text-[11px] leading-relaxed text-slate-500 sm:text-xs">{card.note}</p>
+                  </div>
                 </div>
               ) : (
                 <span className="text-3xl font-semibold text-brand">?</span>
