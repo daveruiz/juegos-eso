@@ -37,7 +37,7 @@ jobs:
     if: needs.build.result == 'success'
     runs-on: ubuntu-latest
     environment:
-      name: github-pages
+      name: preview-${{ github.event.number }}
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Desplegar vista previa
