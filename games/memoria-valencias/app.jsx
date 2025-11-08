@@ -159,7 +159,7 @@ function IntroScreen({ onContinue }) {
         <button
           type="button"
           onClick={onContinue}
-          className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand to-brand-dark px-6 py-3 text-base font-semibold text-slate-950 shadow-lg transition hover:-translate-y-0.5 hover:from-brand-dark hover:to-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/60 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+          className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand to-brand-dark px-6 py-3 text-base font-semibold text-brand-foreground shadow-lg transition hover:-translate-y-0.5 hover:from-brand-dark hover:to-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/60 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
         >
           ¡Empezar!
         </button>
@@ -230,7 +230,7 @@ function DifficultyScreen({ selectedDifficulty, onSelect, onPlay, onBack }) {
         <button
           type="button"
           onClick={onPlay}
-          className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand to-brand-dark px-6 py-2 text-sm font-semibold text-slate-950 shadow-lg transition hover:-translate-y-0.5 hover:from-brand-dark hover:to-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/60 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+          className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand to-brand-dark px-6 py-2 text-sm font-semibold text-brand-foreground shadow-lg transition hover:-translate-y-0.5 hover:from-brand-dark hover:to-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/60 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
         >
           ¡A jugar!
         </button>
@@ -275,7 +275,7 @@ function Scoreboard({ moves, matched, totalPairs, timeLeft, timeLimit, onReset, 
           <button
             type="button"
             onClick={onReset}
-            className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-brand to-brand-dark px-4 py-2 text-sm font-semibold text-slate-950 shadow-lg transition hover:-translate-y-0.5 hover:from-brand-dark hover:to-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/60 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+            className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-brand to-brand-dark px-4 py-2 text-sm font-semibold text-brand-foreground shadow-lg transition hover:-translate-y-0.5 hover:from-brand-dark hover:to-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/60 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
           >
             Reiniciar
           </button>
@@ -452,7 +452,7 @@ function ResultScreen({ result, onReplay, onSelectLevel }) {
         <button
           type="button"
           onClick={onReplay}
-          className="inline-flex items-center gap-2 rounded-full bg-brand px-6 py-2 text-sm font-semibold text-slate-950 shadow-lg transition hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/60 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+          className="inline-flex items-center gap-2 rounded-full bg-brand px-6 py-2 text-sm font-semibold text-brand-foreground shadow-lg transition hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/60 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
         >
           Intentarlo de nuevo
         </button>
