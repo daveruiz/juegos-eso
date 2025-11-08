@@ -1,112 +1,57 @@
 # Juegos ESO
 
-Colección de minijuegos educativos construidos con React y servidos de forma
-estática. El objetivo es que se puedan clonar y ejecutar directamente desde un
-navegador o publicarse con GitHub Pages sin depender de instalaciones previas.
+Colección de minijuegos educativos pensada para el alumnado de Educación Secundaria.
+Todo funciona directamente desde el navegador: solo necesitas abrir `index.html`
+para empezar a jugar o compartir la carpeta con tu clase.
 
-## Características principales
+## Cómo usar la colección
 
-- **Sin build**: React se carga desde CDN. Los componentes se escriben en JSX y
-  se transforman en el navegador mediante `@babel/standalone`.
-- **Estilos con Tailwind**: la interfaz se maqueta con Tailwind CSS vía Play
-  CDN, sin proceso de compilación.
-- **Estructura modular**: cada juego vive en su propia carpeta dentro de
-  `games/`, con sus recursos (HTML, imágenes, componentes, etc.).
-- **Componentes compartidos**: los recursos reutilizables pueden colocarse en la
-  carpeta `common/` y referenciarse desde cualquier juego.
-- **Listado dinámico**: la portada (`index.html`) renderiza la lista de juegos a
-  partir del archivo `games/games.json`.
+1. Descarga la carpeta y guárdala en tu ordenador.
+2. Abre el archivo `index.html` con tu navegador favorito (Chrome, Edge, Firefox…).
+3. Elige un juego de la lista y pulsa "Abrir juego" para jugar en una pestaña nueva.
 
-## Estructura del repositorio
+## Juegos incluidos
 
-```
-.
-├── common/                # Recursos compartidos opcionales
-│   └── .gitkeep
-├── games/
-│   ├── games.json         # Índice de juegos disponibles
-│   └── demo-counter/
-│       ├── app.jsx        # Lógica del juego en React
-│       └── index.html     # Entrada del juego
-├── index.html             # Portada con el listado de juegos
-├── LICENSE
-└── README.md
-```
+- **Contador interactivo (Demo)**: practica sumas y restas rápidas mientras el
+  marcador registra cuántos puntos consigues.
+- **Memoria de valencias químicas**: reta tu memoria emparejando elementos con su
+  valencia correspondiente y supera el temporizador.
 
-## Cómo añadir un nuevo juego
+## Para quienes quieran crear o adaptar juegos
 
-1. Crea una carpeta dentro de `games/` (por ejemplo `games/mi-juego/`).
-2. Copia el contenido de `games/demo-counter` como punto de partida o crea tus
-   propios archivos:
-   - `index.html` debe incluir React, ReactDOM y Babel desde CDN.
-   - Añade Tailwind con el Play CDN (`<script src="https://cdn.tailwindcss.com">`).
-   - Usa `<script type="text/babel" src="./app.jsx"></script>` para cargar tu
-     lógica escrita en JSX.
-   - Si necesitas recursos compartidos, colócalos en `common/` y enlázalos con
-     rutas relativas.
-3. Añade una entrada en `games/games.json` con los metadatos del juego:
+Si eres docente o te encargas de ampliar la colección, cada juego vive en una
+carpeta dentro de `games/`. Puedes duplicar `games/demo-counter` como plantilla
+mínima:
 
-   ```json
-   {
-     "id": "mi-juego",
-     "name": "Nombre visible",
-     "description": "Descripción corta",
-     "path": "./games/mi-juego/"
-   }
-   ```
+- El archivo `index.html` arma la página del juego y ya incluye las librerías
+  necesarias.
+- El archivo `app.jsx` contiene la lógica del juego y está escrito en JSX, un
+  formato similar a HTML que React entiende directamente en el navegador gracias
+  a Babel (todo viene configurado en los ejemplos).
+- Para añadir estilos utilizamos Tailwind CSS a través de un script (`<script
+  src="https://cdn.tailwindcss.com"></script>`). Puedes ajustar colores o
+  tipografías modificando la pequeña configuración `tailwind.config` que verás en
+  cada encabezado `<head>`.
+- Si varias actividades comparten imágenes, sonidos u otros recursos, colócalos
+  dentro de `common/`.
 
-4. Abre `index.html` en el navegador para comprobar que el juego aparece en la
-   lista y se carga correctamente.
+Cuando tengas listo tu juego, añade su información al archivo `games/games.json`
+(con identificador, nombre visible, descripción y ruta).
 
-## Desarrollo local
+## Compartir con tu grupo
 
-Al no depender de Node ni herramientas de build, basta con abrir los archivos en
-un navegador moderno. Si prefieres usar un servidor local estático, cualquier
-opción vale (por ejemplo `python -m http.server`).
+Puedes copiar la carpeta completa en ordenadores del aula, subirla al aula
+virtual o publicarla en un servicio de páginas estáticas (por ejemplo GitHub
+Pages o Netlify). Solo asegúrate de incluir la carpeta `games/` y los recursos de
+`common/` si los usas.
 
-## Uso de Tailwind CSS sin proceso de compilación
+## Consejos técnicos opcionales
 
-Tailwind es la base visual del proyecto y se carga mediante el *Play CDN*, por
-lo que no se requiere tooling adicional. El patrón recomendado es incluir una
-configuración ligera antes de cargar la librería:
-
-```html
-<head>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              DEFAULT: "#38bdf8",
-              dark: "#0ea5e9",
-            },
-          },
-          fontFamily: {
-            sans: ["Inter", "system-ui", "-apple-system", "sans-serif"],
-          },
-        },
-      },
-    };
-  </script>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-```
-
-Una vez cargado, puedes utilizar las clases utilitarias directamente en tu JSX o
-HTML (`class="bg-slate-900 text-white"`, etc.). Si necesitas *plugins*, añade la
-query string al script (`https://cdn.tailwindcss.com?plugins=forms,typography`).
-
-Recomendaciones rápidas:
-
-- Declara las clases de forma literal para que el CDN pueda detectarlas; evita
-  generar nombres dinámicos como `"bg-" + color`.
-- El Play CDN es perfecto para prototipos o proyectos pequeños sin build. Si el
-  proyecto crece y necesitas *purge* o personalizaciones complejas, conviene dar
-  el salto a una configuración con build.
-
-## Publicación
-
-Los archivos pueden publicarse directamente en GitHub Pages (modo "Deploy from a
-branch") u otro servicio de hosting estático. Solo asegúrate de que el directorio
-`games/` y los recursos `common/` se suban junto con el resto del repositorio.
+- Para revisar los cambios sin necesidad de subirlos a internet, puedes abrir un
+  servidor estático desde la carpeta del proyecto. Un ejemplo sencillo es `python
+  -m http.server`.
+- Tailwind funciona mejor cuando las clases se escriben de forma literal (por
+  ejemplo `class="bg-slate-900"`). Evita construir nombres mediante variables.
+- Si la colección crece mucho y necesitas personalizaciones avanzadas, quizá sea
+  conveniente migrar a un flujo de trabajo con herramientas de compilación, pero
+  para prototipos y actividades pequeñas este formato es suficiente.

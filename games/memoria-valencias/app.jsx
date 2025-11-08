@@ -151,8 +151,8 @@ function IntroScreen({ onContinue }) {
         <p className="text-sm uppercase tracking-[0.4em] text-brand/70">Nueva misión química</p>
         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Encuentra las parejas perfectas</h2>
         <p className="mx-auto max-w-2xl text-base text-slate-300/90">
-          Pon a prueba tu memoria emparejando elementos con sus valencias más habituales en 4.º de ESO. Aprende a
-          identificar los cationes y aniones más comunes mientras compites contra el reloj.
+          Da la vuelta a las cartas y busca cada pareja formada por un elemento químico y su valencia correspondiente
+          antes de que se acabe el tiempo.
         </p>
       </div>
       <div className="flex justify-center">
@@ -164,19 +164,9 @@ function IntroScreen({ onContinue }) {
           ¡Empezar!
         </button>
       </div>
-      <div className="grid gap-4 sm:grid-cols-3">
-        {["Observa", "Relaciona", "Celebra"].map((step, index) => (
-          <div key={step} className="rounded-2xl border border-white/10 bg-white/5 p-4 text-left">
-            <span className="text-sm font-semibold text-brand/80">Paso {index + 1}</span>
-            <p className="mt-2 text-base font-medium text-slate-100">{step}</p>
-            <p className="mt-2 text-sm text-slate-300/80">
-              {index === 0 && "Estudia cada carta y recuerda su posición."}
-              {index === 1 && "Empareja el elemento con la valencia correspondiente antes de que acabe el tiempo."}
-              {index === 2 && "Si completas todas las parejas disfrutarás de fuegos artificiales químicos."}
-            </p>
-          </div>
-        ))}
-      </div>
+      <p className="text-sm text-slate-300/80">
+        ¡Listo! Pulsa en dos cartas para descubrirlas y memoriza dónde está cada combinación.
+      </p>
     </section>
   );
 }
