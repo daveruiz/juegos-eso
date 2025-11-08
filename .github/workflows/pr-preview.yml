@@ -29,6 +29,13 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
           persist-credentials: false
+      - name: Checkout rama base
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          path: __base
+          fetch-depth: 1
+          persist-credentials: false
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
       - name: Obtener URL base de Pages
@@ -58,9 +65,27 @@ jobs:
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          PREVIEW_DIR="__preview/pr-$PR_NUMBER"
-          mkdir -p "$PREVIEW_DIR"
-          rsync -av --exclude='.git' --exclude='.github' --exclude='__preview' ./ "$PREVIEW_DIR/"
+          set -euo pipefail
+
+          PREVIEW_ROOT="__preview"
+          PR_DIR="$PREVIEW_ROOT/pr-$PR_NUMBER"
+
+          rm -rf "$PREVIEW_ROOT"
+          mkdir -p "$PREVIEW_ROOT"
+
+          rsync -a --delete \
+            --exclude='.git' \
+            --exclude='.github' \
+            __base/ "$PREVIEW_ROOT/"
+
+          mkdir -p "$PR_DIR"
+
+          rsync -a --delete \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='__preview' \
+            --exclude='__base' \
+            ./ "$PR_DIR/"
       - name: Subir artefacto de la página
         uses: actions/upload-pages-artifact@v3
         with:
