@@ -9,6 +9,7 @@ permissions:
   pages: write
   id-token: write
   pull-requests: write
+  issues: write
 
 concurrency:
   group: "pages-preview-${{ github.event.pull_request.number }}"
