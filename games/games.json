@@ -1,12 +1,6 @@
 {
   "games": [
     {
-      "id": "demo-counter",
-      "name": "Contador interactivo (Demo)",
-      "description": "Practica sumas y restas rápidas y observa cómo cambia el marcador en tiempo real.",
-      "path": "./games/demo-counter/"
-    },
-    {
       "id": "memoria-valencias",
       "name": "Memoria de valencias químicas",
       "description": "Encuentra las parejas de elemento y valencia que se trabajan en 4.º de ESO.",

@@ -2,7 +2,7 @@ name: Vista previa de Pull Request
 
 on:
   pull_request_target:
-    types: [opened, reopened, synchronize, ready_for_review]
+    types: ["opened", "reopened", "synchronize", "ready_for_review"]
 
 permissions:
   contents: read
@@ -11,7 +11,7 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: pages-preview-${{ github.event.number }}
+  group: "pages-preview-${{ github.event.number }}"
   cancel-in-progress: true
 
 jobs:
@@ -30,14 +30,14 @@ jobs:
       - name: Subir artefacto de la página
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: "."
 
   deploy:
     needs: build
     if: needs.build.result == 'success'
     runs-on: ubuntu-latest
     environment:
-      name: github-pages
+      name: preview-${{ github.event.number }}
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Desplegar vista previa
