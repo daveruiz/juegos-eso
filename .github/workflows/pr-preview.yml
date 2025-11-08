@@ -11,7 +11,7 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: "pages-preview-${{ github.event.number }}"
+  group: "pages-preview-${{ github.event.pull_request.number }}"
   cancel-in-progress: true
 
 jobs:
@@ -27,18 +27,25 @@ jobs:
           persist-credentials: false
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
+      - name: Preparar contenido con ruta dedicada
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          PREVIEW_DIR="__preview/pr-$PR_NUMBER"
+          mkdir -p "$PREVIEW_DIR"
+          rsync -av --exclude='.git' --exclude='.github' --exclude='__preview' ./ "$PREVIEW_DIR/"
       - name: Subir artefacto de la página
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "."
+          path: "__preview"
 
   deploy:
     needs: build
     if: needs.build.result == 'success'
     runs-on: ubuntu-latest
     environment:
-      name: preview-${{ github.event.number }}
-      url: ${{ steps.deployment.outputs.page_url }}
+      name: preview-${{ github.event.pull_request.number }}
+      url: ${{ github.event.repository.name == format('{0}.github.io', github.repository_owner) && format('https://{0}.github.io/pr-{1}/', github.repository_owner, github.event.pull_request.number) || format('https://{0}.github.io/{1}/pr-{2}/', github.repository_owner, github.event.repository.name, github.event.pull_request.number) }}
     steps:
       - name: Desplegar vista previa
         id: deployment
