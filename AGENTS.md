@@ -29,3 +29,7 @@
 - Escribe commits descriptivos y en español si la tarea lo permite.
 - Mantén el README y la documentación alineados si introduces cambios estructurales relevantes.
 - Si añades recursos estáticos (imágenes, sonidos), ubícalos dentro de la carpeta del juego correspondiente o en `common/` si se comparten.
+
+## Tono y comunicación
+- Cuando actualices textos visibles para el público (README, portadas, copys de juegos), prioriza un lenguaje accesible para estudiantes de ESO.
+- Evita jerga técnica innecesaria en la interfaz y ofrece explicaciones sencillas cuando debas mencionar herramientas como React o Tailwind.

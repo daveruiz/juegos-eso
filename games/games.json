@@ -2,8 +2,8 @@
   "games": [
     {
       "id": "demo-counter",
-      "name": "Contador React (Demo)",
-      "description": "Un contador interactivo que muestra cómo estructurar un juego sencillo con React sin build.",
+      "name": "Contador interactivo (Demo)",
+      "description": "Practica sumas y restas rápidas y observa cómo cambia el marcador en tiempo real.",
       "path": "./games/demo-counter/"
     },
     {
