@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memoria de valencias químicas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                DEFAULT: "#38bdf8",
+                dark: "#0ea5e9",
+              },
+            },
+            fontFamily: {
+              sans: ["Inter", "system-ui", "-apple-system", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="../../common/fireworks.js"></script>
+  </head>
+  <body class="min-h-screen bg-slate-950 bg-gradient-to-b from-slate-950 to-slate-900 px-4 py-10 font-sans text-slate-100">
+    <main class="mx-auto flex w-full max-w-5xl justify-center">
+      <section
+        class="w-full rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur-lg transition"
+      >
+        <header class="mb-8 space-y-4">
+          <a
+            class="inline-flex items-center gap-2 text-sm font-semibold text-brand transition hover:-translate-x-0.5"
+            href="../../index.html"
+            >
+            ← Volver
+          </a>
+          <div class="space-y-2">
+            <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">
+              Memoria de valencias químicas
+            </h1>
+            <p class="text-base text-slate-300/80">
+              Vive una experiencia por etapas: descubre la misión, elige la dificultad y supera el tablero contra el
+              temporizador. Empareja cada elemento con la valencia que trabaja en 4.º de ESO y celebra con fuegos
+              artificiales cuando completes todas las parejas.
+            </p>
+          </div>
+        </header>
+        <div id="root" class="space-y-6"></div>
+      </section>
+    </main>
+
+    <script type="text/babel" src="./app.jsx"></script>
+  </body>
+</html>
