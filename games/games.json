@@ -1,0 +1,10 @@
+{
+  "games": [
+    {
+      "id": "demo-counter",
+      "name": "Contador React (Demo)",
+      "description": "Un contador interactivo que muestra cómo estructurar un juego sencillo con React sin build.",
+      "path": "./games/demo-counter/"
+    }
+  ]
+}
